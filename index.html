@@ -100,6 +100,9 @@ select {
 .what p { margin: .2rem 0 0; }
 .item.key { background: var(--gold-soft); border-radius: 8px; padding-left: .5rem; padding-right: .5rem; }
 .verify { font-size: .88rem; color: var(--muted); }
+.picks { margin: .5rem 0 0; padding-left: 1.1rem; }
+.picks li { margin-bottom: .35rem; }
+.what .picks strong { display: inline; }
 
 /* Tips, season, changelog */
 .tips { background: var(--panel); border-radius: var(--radius); padding: 1rem 1rem .5rem; }
@@ -234,15 +237,18 @@ const SEASON = {
   year: 2026,
   team: "Notre Dame Fighting Irish",
   games: [
-    { opponent: "Wisconsin",      date: "2026-09-06", site: "neutral", venue: "Lambeau Field",      kickoff: "TBA", played: true,  result: "W",  score: "to confirm" },
-    { opponent: "Rice",           date: "2026-09-12", site: "home",    venue: "Notre Dame Stadium", kickoff: "TBA", played: true,  result: "W",  score: "to confirm" },
-    { opponent: "Michigan State", date: "2026-09-19", site: "home",    venue: "Notre Dame Stadium", kickoff: "TBA", played: true,  result: "W",  score: "to confirm" },
-    { opponent: "Purdue",         date: "2026-09-26", site: "away",    venue: "",                   kickoff: "TBA", played: true,  result: "W",  score: "49-10" },
-    { opponent: "Stanford",       date: "2026-10-10", site: "home",    venue: "Notre Dame Stadium", kickoff: "TBA", played: false, result: null, score: null },
-    { opponent: "Navy",           date: "2026-10-31", site: "home",    venue: "Notre Dame Stadium", kickoff: "TBA", played: false, result: null, score: null },
-    { opponent: "Miami",          date: "2026-11-07", site: "home",    venue: "Notre Dame Stadium", kickoff: "TBA", played: false, result: null, score: null },
-    { opponent: "Boston College", date: "2026-11-14", site: "home",    venue: "Notre Dame Stadium", kickoff: "TBA", played: false, result: null, score: null },
-    { opponent: "SMU",            date: "2026-11-21", site: "home",    venue: "Notre Dame Stadium", kickoff: "TBA", played: false, result: null, score: null }
+    { opponent: "Wisconsin",      date: "2026-09-06", site: "neutral", venue: "Lambeau Field",      kickoff: "19:30", played: true,  result: "W",  score: "to confirm" },
+    { opponent: "Rice",           date: "2026-09-12", site: "home",    venue: "Notre Dame Stadium", kickoff: "15:30", played: true,  result: "W",  score: "to confirm" },
+    { opponent: "Michigan State", date: "2026-09-19", site: "home",    venue: "Notre Dame Stadium", kickoff: "19:30", played: true,  result: "W",  score: "to confirm" },
+    { opponent: "Purdue",         date: "2026-09-26", site: "away",    venue: "",                   kickoff: "TBA",   played: true,  result: "W",  score: "49-10" },
+    { opponent: "North Carolina", date: "2026-10-03", site: "away",    venue: "",                   kickoff: "TBA",   played: false, result: null, score: null },
+    { opponent: "Stanford",       date: "2026-10-10", site: "home",    venue: "Notre Dame Stadium", kickoff: "15:30", played: false, result: null, score: null },
+    { opponent: "BYU",            date: "2026-10-17", site: "away",    venue: "",                   kickoff: "TBA",   played: false, result: null, score: null },
+    { opponent: "Navy",           date: "2026-10-31", site: "neutral", venue: "Gillette Stadium",   kickoff: "TBA",   played: false, result: null, score: null },
+    { opponent: "Miami",          date: "2026-11-07", site: "home",    venue: "Notre Dame Stadium", kickoff: "19:30", played: false, result: null, score: null },
+    { opponent: "Boston College", date: "2026-11-14", site: "home",    venue: "Notre Dame Stadium", kickoff: "15:30", played: false, result: null, score: null },
+    { opponent: "SMU",            date: "2026-11-21", site: "home",    venue: "Notre Dame Stadium", kickoff: "19:30", played: false, result: null, score: null },
+    { opponent: "Syracuse",       date: "2026-11-28", site: "away",    venue: "",                   kickoff: "TBA",   played: false, result: null, score: null }
   ]
 };
 
@@ -250,6 +256,7 @@ const SEASON = {
    CHANGELOG — newest entry first. Add one entry per weekly update.
    ===================================================================== */
 const CHANGELOG = [
+  { date: "2026-09-29", text: "Kickoff times set for every home game, Navy moved to Gillette Stadium in Foxborough, and the road games at North Carolina, BYU, and Syracuse added." },
   { date: "2026-09-28", text: "Planner published. Season data entered through the Purdue game." }
 ];
 
@@ -301,7 +308,7 @@ const ITINERARY = {
       { time: "13:30", arrivals: ["thu", "fri"], title: "Basilica of the Sacred Heart", text: "Step inside to see the murals and stained glass. Services and weddings take priority over visitors, so check the schedule first.", verify: true },
       { time: "14:30", arrivals: ["fri"], title: "Short campus walk", text: "From the Basilica, walk past the Main Building and Golden Dome, across God Quad, and out to Hesburgh Library and its Word of Life mural." },
       { time: "15:30", arrivals: ["thu", "fri"], title: "Hammes Notre Dame Bookstore", text: "Shop on Friday. On Saturday the lines stretch out the door. Hours are extended on football weekends.", verify: true },
-      { time: "17:30", arrivals: ["thu", "fri"], title: "Dinner", text: "Reserve ahead. Restaurants near campus and downtown South Bend are packed on football Fridays." },
+      { time: "17:30", arrivals: ["thu", "fri"], title: "Dinner", text: "Reserve ahead. Restaurants near campus and downtown South Bend are packed on football Fridays.", dinnerPicks: true },
       { time: "19:30", arrivals: ["thu", "fri"], title: "Friday evening events", text: "Some weekends have a pep rally or other Friday events; details and times change from game to game.", verify: true },
       { time: "21:00", arrivals: ["thu", "fri"], title: "The Grotto at night", text: "Walk down behind the Basilica to the Grotto. It is quiet, candle-lit, and one of the best moments of the weekend. Bring a lighter or a dollar for a candle." }
     ],
@@ -324,6 +331,11 @@ const ITINERARY = {
       { time: "11:30", arrivals: ["thu", "fri", "sat"], title: "Drive out", text: "Sunday traffic is lighter than Saturday night. Heading to Chicago? It is on Central Time, one hour behind South Bend." }
     ]
   },
+  dinnerPicks: [
+    { name: "Rohr's", where: "Morris Inn, on campus", text: "Sit-down dinner steps from Main Circle. Football-weekend tables are booked on OpenTable only, months ahead, and go fast." },
+    { name: "Legends of Notre Dame", where: "just south of the stadium", text: "Burgers, sandwiches, and pub fare a short walk from the stadium. Expect a wait on a football Friday." },
+    { name: "Fiddler's Hearth", where: "downtown South Bend", text: "Irish pub with fish and chips and live music most nights. Book a table online." }
+  ],
   tips: [
     { text: "All times on this page are Eastern Time (ET), the time zone in South Bend." },
     { text: "Stadium bag rules are strict: plan on a small clear bag or a small clutch only.", verify: true },
@@ -526,6 +538,17 @@ function verifyLine() {
   return p;
 }
 
+function dinnerPicksList() {
+  const ul = el("ul", { className: "picks", "aria-label": "Friday dinner picks" });
+  ITINERARY.dinnerPicks.forEach((p) => {
+    ul.appendChild(el("li", null, [
+      el("strong", { text: p.name }),
+      document.createTextNode(" (" + p.where + "). " + p.text)
+    ]));
+  });
+  return ul;
+}
+
 function renderPlan() {
   const game = selectedGame();
   const days = $("days");
@@ -592,7 +615,8 @@ function renderPlan() {
       const what = el("div", { className: "what" }, [
         el("strong", { text: r.it.title }),
         el("p", { text: fill(text, ctx) }),
-        r.it.verify ? verifyLine() : null
+        r.it.dinnerPicks ? dinnerPicksList() : null,
+        r.it.verify || r.it.dinnerPicks ? verifyLine() : null
       ]);
       list.appendChild(el("li", { className: "item" + (r.it.key ? " key" : "") }, [
         el("div", { className: "time", text: r.time }),
